@@ -8,6 +8,7 @@
     "start": "node index.js",
     "dev": "node --watch index.js",
     "cli": "node src/cli.js",
+    "db:seed": "node src/seeds/index.js",
     "db:push": "npx drizzle-kit push",
     "db:generate": "npx drizzle-kit generate --config=drizzle.config.js",
     "db:migrate": "npx drizzle-kit migrate --config=drizzle.config.js"

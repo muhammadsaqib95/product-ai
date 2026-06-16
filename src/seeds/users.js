@@ -11,4 +11,3 @@ const users = [
 
 await db.insert(usersTable).values(users);
 console.log(`Seeded ${users.length} users.`);
-process.exit(0);

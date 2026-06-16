@@ -71,4 +71,3 @@ for (let i = 0; i < 100; i++) {
 }
 
 console.log('Seeded 100 orders with their items.');
-process.exit(0);

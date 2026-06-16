@@ -66,4 +66,3 @@ const products = [
 
 await db.insert(productsTable).values(products);
 console.log(`Seeded ${products.length} products.`);
-process.exit(0);
