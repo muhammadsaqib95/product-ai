@@ -3,7 +3,7 @@ import db from "../db.js";
 import { ordersTable } from "../schemas/orders.js";
 import { orderItemsTable } from "../schemas/orderItems.js";
 
-export async function listOrders({ limit = 10, offset = 0, user_id, order_status, payment_status, min_total, max_total } = {}) {
+export async function listOrders({ limit = 500, offset = 0, user_id, order_status, payment_status, min_total, max_total } = {}) {
     const filters = [];
     if (user_id != null)       filters.push(eq(ordersTable.user_id, user_id));
     if (order_status)          filters.push(eq(ordersTable.order_status, order_status));

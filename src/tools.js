@@ -2,10 +2,22 @@ import { listProducts, getProduct } from "./services/products.js";
 import { listUsers, getUser } from "./services/users.js";
 import { listOrders, getOrder } from "./services/orders.js";
 
+// LLMs sometimes return array arguments as stringified arrays e.g. "['white']"
+function toArray(v) {
+    if (!v) return undefined;
+    if (Array.isArray(v)) return v;
+    try { const p = JSON.parse(v); return Array.isArray(p) ? p : [String(v)]; } catch { return [String(v)]; }
+}
+
 export async function executeTool(name, input) {
     if (name === "list_products") {
         const { limit, offset, min_price, max_price, sizes, colors, tags } = input;
-        const result = await listProducts({ limit, offset, min_price, max_price, sizes, colors, tags });
+        const result = await listProducts({
+            limit, offset, min_price, max_price,
+            sizes: toArray(sizes),
+            colors: toArray(colors),
+            tags: toArray(tags),
+        });
         return JSON.stringify(result);
     }
 
@@ -120,9 +132,9 @@ export const tools = [
             properties: {
                 limit: {
                     type: "integer",
-                    description: "Maximum number of orders to return. Defaults to 10.",
+                    description: "Maximum number of orders to return. Defaults to 500",
                     minimum: 1,
-                    maximum: 100,
+                    maximum: 500,
                 },
                 offset: {
                     type: "integer",
